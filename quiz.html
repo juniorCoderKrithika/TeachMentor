@@ -1,0 +1,137 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Style Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #75a6d7;
+            margin: 20px;
+        }
+        h1, h3 {
+            text-align: center;
+        }
+        #quiz-container {
+            max-width: 600px;
+            margin: auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        input[type="radio"] {
+            margin-right: 5px;
+        }
+        button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+    <link rel="stylesheet" href="quiz.css">
+</head>
+<body>
+
+<div id="quiz-container">
+    <center>
+    <h1>Learning Style Quiz</h1>
+    <span>Enter your name</span>
+    <span><input type="text"></span>
+</center>
+    <form id="quiz-form">
+        <h3>1. When learning a new skill, I prefer to:</h3>
+        <label><input type="radio" name="q1" value="visual"> Visualize the process</label>
+        <label><input type="radio" name="q1" value="auditory"> Listen to explanations or discussions</label>
+        <label><input type="radio" name="q1" value="kinesthetic"> Get hands-on and practice</label>
+        <label><input type="radio" name="q1" value="reading_writing"> Read books about it</label>
+
+        <h3>2. In a group study session, I am most likely to:</h3>
+        <label><input type="radio" name="q2" value="visual"> Create diagrams or charts</label>
+        <label><input type="radio" name="q2" value="auditory"> Engage in discussions or debates</label>
+        <label><input type="radio" name="q2" value="kinesthetic"> Participate actively in group activities</label>
+        <label><input type="radio" name="q2" value="reading_writing"> Note it down</label>
+
+        <h3>3. When solving a problem, I tend to:</h3>
+        <label><input type="radio" name="q3" value="visual"> Visualize the situation and find the solution</label>
+        <label><input type="radio" name="q3" value="auditory"> Talk through the problem out loud</label>
+        <label><input type="radio" name="q3" value="kinesthetic"> Try different solutions through trial and error</label>
+        <label><input type="radio" name="q3" value="reading_writing"> Refer to books and make mindmaps</label>
+
+        <h3>4. When faced with a problem, your instinct is to</h3>
+        <label><input type="radio" name="q4" value="visual">  Visualize the situation and possible solutions in your mind.</label>
+        <label><input type="radio" name="q4" value="auditory"> Discuss it with others to gain different perspectives.</label>
+        <label><input type="radio" name="q4" value="kinesthetic">Physically work through the problem or experiment with solutions.</label>
+        <label><input type="radio" name="q4" value="reading_writing"> Read about similar problems and potential solutions.</label>
+
+        <h3>5. Your ideal study environment is</h3>
+        <label><input type="radio" name="q5" value="visual"> Well-organized with visual aids and diagrams.</label>
+        <label><input type="radio" name="q5" value="auditory"> Social and interactive, with group discussions.</label>
+        <label><input type="radio" name="q5" value="kinesthetic"> Dynamic and active, allowing for hands-on activities.</label>
+        <label><input type="radio" name="q5" value="reading_writing"> Quiet and focused, allowing for reading and writing.</label>
+    
+        <h3>6. When trying to remember information, what works best for you?</h3>
+        <label><input type="radio" name="q6" value="visual">  Looking at images or visual cues related to the information.</label>
+        <label><input type="radio" name="q6" value="auditory"> Repeating the information out loud or discussing it with others.Repeating the information out loud or discussing it with others.</label>
+        <label><input type="radio" name="q6" value="kinesthetic"> Acting out or physically demonstrating the information.</label>
+        <label><input type="radio" name="q6" value="reading_writing"> Reading and rewriting key points or notes.</label>
+
+        <h3>7.In your free time, you prefer</h3>
+        <label><input type="radio" name="q7" value="visual">  Engaging in visual activities like drawing or watching videos.Engaging in visual activities like drawing or watching videos.</label>
+        <label><input type="radio" name="q7" value="auditory"> Listening to music, podcasts, or participating in conversations.<</label>
+        <label><input type="radio" name="q7" value="kinesthetic"> Participating in physical activities or sports.</label>
+        <label><input type="radio" name="q7" value="reading_writing"> Reading books, articles, or blogs.</label>
+
+        <button type="button" onclick="calculateResults()">Submit</button>
+        <a href="main.html">Return Home</a>
+    </form>
+
+    <div id="results-container" style="display: none;">
+        <h3>Your Learning Style:</h3>
+        <p id="result"></p>
+    </div>
+</div>
+
+<script>
+    function calculateResults() {
+        const form = document.getElementById('quiz-form');
+        const resultsContainer = document.getElementById('results-container');
+        const resultParagraph = document.getElementById('result');
+
+        const answers = {
+            visual: 0,
+            auditory: 0,
+            reading_writing: 0,
+            kinesthetic: 0
+        
+        };
+
+        // Iterate through each question and update the corresponding learning style
+        for (let i = 1; i <= 3; i++) {
+            const selectedOption = form.querySelector(`input[name="q${i}"]:checked`);
+            if (selectedOption) {
+                answers[selectedOption.value]++;
+            }
+        }
+
+        // Determine the learning style with the most votes
+        const maxVotes = Math.max(...Object.values(answers));
+        const learningStyle = Object.keys(answers).find(key => answers[key] === maxVotes);
+
+        // Display the results
+        resultParagraph.textContent = `You are a ${learningStyle.toUpperCase()} learner!`;
+        resultsContainer.style.display = 'block';
+    }
+
+</script>
+
+</body>
+</html>
